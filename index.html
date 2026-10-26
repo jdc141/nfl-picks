@@ -204,6 +204,53 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .rgame .who small { font: 600 .72rem var(--stat); color: var(--ink-soft); text-transform: uppercase; letter-spacing: .06em; width: 100%; }
 .rgame p { margin: 4px 0 0; font-size: .82rem; color: var(--ink-soft); line-height: 1.35; }
 .perfect { font: 900 2.2rem/1 var(--display); color: var(--orange); }
+/* tickets: exposure meter and the ticket list */
+.tix-view h3 { font: 800 1.05rem/1 var(--display); text-transform: uppercase; letter-spacing: .03em; margin: 0 0 6px; }
+.tix-view h3 span { font: 600 .72rem var(--stat); color: var(--ink-soft); letter-spacing: .06em; margin-left: 6px; }
+.warn-note { color: var(--orange); font-weight: 600; margin: 0 0 12px; }
+.expo { background: var(--surface); border: 1.5px solid var(--rule); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; }
+.expo .note { margin: 0 0 10px; }
+.expo .note b { color: var(--ink); }
+.expo ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.expo li { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) 4.2rem 3rem; align-items: center; gap: 10px; font-size: .86rem; }
+.expo .nm { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.expo .kt { font: 800 .6rem var(--stat); letter-spacing: .06em; text-transform: uppercase; background: var(--orange); color: var(--orange-ink); padding: 2px 4px; border-radius: 3px; vertical-align: 1px; }
+.expo .bar { height: 12px; background: var(--board); border-radius: 3px; overflow: hidden; }
+.expo .bar i { display: block; height: 100%; background: var(--team); box-shadow: inset 0 0 0 1px var(--frame-edge); }
+.expo .ct { font: 700 .82rem var(--stat); text-align: right; }
+.expo .pc { font: 600 .78rem var(--stat); color: var(--ink-soft); text-align: right; }
+.tixmode { margin-bottom: 14px; }
+.tix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-bottom: 18px; }
+.tix-grid .expo { margin: 0; }
+.expo li { grid-template-columns: minmax(0, 1fr) auto 2.8rem auto; gap: 3px 10px; }
+.expo .bar { grid-column: 1 / -1; grid-row: 2; height: 7px; }
+.expo .more { margin-top: 8px; }
+.expo .nm small { font: 600 .68rem var(--stat); color: var(--ink-soft); }
+.expo .mx { display: inline-flex; gap: 4px; }
+.expo .mx button, .ticket .play { background: transparent; border: 1.5px solid var(--rule); border-radius: 5px; padding: 3px 8px; font: 700 .72rem var(--ui); color: var(--ink); }
+.expo .mx button:hover, .ticket .play:hover { border-color: var(--ink); }
+.expo .mx button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.risk { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.risk li { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; padding: 7px 0; border-bottom: 1px dotted var(--rule); font-size: .86rem; }
+.risk li:last-child { border-bottom: 0; }
+.risk li .num { font: 600 .8rem var(--stat); color: var(--ink-soft); white-space: nowrap; }
+.risk li b { color: var(--ink); }
+.risk li.all b { color: #b8442a; }
+.ticket .play { margin-left: 8px; }
+.ticket .play[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: var(--orange-ink); }
+.ticket.on { border-color: var(--orange); }
+.tix { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.ticket { background: var(--surface); border: 1.5px solid var(--rule); border-radius: 10px; padding: 11px 13px 12px; display: flex; flex-direction: column; gap: 8px; }
+.ticket header { display: flex; align-items: baseline; gap: 8px; }
+.ticket .i { font: 700 .78rem var(--stat); color: var(--ink-soft); }
+.ticket .p { font: 900 1.45rem/1 var(--display); }
+.ticket .h { font: 700 .8rem var(--stat); color: var(--ink-soft); margin-left: auto; }
+.ticket ul { list-style: none; margin: 0; padding: 0; font-size: .88rem; flex: 1; }
+.ticket li { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; border-bottom: 1px dotted var(--rule); }
+.ticket li small { font: 600 .7rem var(--stat); color: var(--ink-soft); letter-spacing: .04em; }
+.ticket li span:last-child { font: 700 .86rem var(--stat); }
+.tbtn { display: block; text-align: center; text-decoration: none; background: var(--orange); color: var(--orange-ink); border-radius: 7px; padding: 9px; font: 800 .84rem var(--ui); }
+.tbtn:hover { filter: brightness(1.06); }
 .mega-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 14px; }
 
 footer { border-top: 1.5px solid var(--rule); padding: 18px 0 40px; color: var(--ink-soft); font-size: .84rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px 28px; }
@@ -265,17 +312,24 @@ footer p { margin: 0; max-width: 62ch; }
   .pack .h { font-size: .72rem; }
   .mega-head h2 { font-size: 1.3rem; }
   .rgame { grid-template-columns: minmax(0, 1fr); }
-  .rslips { grid-template-columns: minmax(0, 1fr); }
+  .rslips, .tix { grid-template-columns: minmax(0, 1fr); }
+  .expo { padding: 12px; }
+  .expo .pc { display: none; }
+  .expo li { grid-template-columns: minmax(0, 1fr) auto auto; }
+  .expo .mx button, .ticket .play { min-height: 34px; padding-inline: 10px; }
+  .tix-grid { grid-template-columns: minmax(0, 1fr); }
 
   /* docked slip: price and odds on the left, both actions on the right */
-  .slip { position: fixed; left: 0; right: 0; bottom: 0; top: auto; border-radius: 14px 14px 0 0; padding: 10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gutter-l); display: grid; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-rows: auto auto; align-items: center; gap: 2px 8px; z-index: 25; box-shadow: 0 -8px 24px rgba(0, 0, 0, .25); }
+  .slip { position: fixed; left: 0; right: 0; bottom: 0; top: auto; border-radius: 14px 14px 0 0; padding: 10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gutter-l); display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-rows: auto auto; align-items: center; gap: 2px 6px; z-index: 25; box-shadow: 0 -8px 24px rgba(0, 0, 0, .25); }
   .slip .what, .slip ol, .slip .fine, .slip .stats { display: none; }
   .slip .price { grid-column: 1; grid-row: 1; font-size: 1.9rem; }
   .slip .price.long, .slip .price.longer { font-size: 1.55rem; }
   .slip .pays { grid-column: 1; grid-row: 2; font-size: .76rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .slip .btn { grid-row: 1 / span 2; white-space: nowrap; padding: 12px 13px; font-size: .9rem; }
   .slip .btn.out { grid-column: 2; font-size: .85rem; }
-  .slip .btn.go { grid-column: 3; }
+  .slip .btn.go { grid-column: 4; }
+  .slip .btn.save { grid-column: 3; }
+  .slip .btn .lg { display: none; }
   .tabs { margin-top: 8px; }
   .tabs button { flex: 1; padding-inline: 6px; }
   .tabs .full { display: none; } .tabs .short { display: inline; }
@@ -312,7 +366,7 @@ footer p { margin: 0; max-width: 62ch; }
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
-const DATA = {"meta": {"corr_same_team": 0.92, "corr_opponent": 1.03, "model_weight": 0.5, "label": "2026 Week 7 \u00b7 odds as of Sun Oct 25, 5:17 PM ET \u00b7 21 players"}, "legs": [{"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036997", "display_name": "Javonte Williams", "pos": "RB", "implied_pts": 24.0, "p_td": 0.588, "mkt_p": 0.5839, "p_bet": 0.5859, "odds": -165, "dec": 1.6061, "leg_ev": -0.0589, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767594_13L88808Q1-2070504203Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036997", "display_name": "Javonte Williams", "pos": "RB", "implied_pts": 24.0, "p_td": 0.588, "mkt_p": 0.5839, "p_bet": 0.5859, "odds": -170, "dec": 1.5882, "leg_ev": -0.0694, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=37101846"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0038134", "display_name": "Kenneth Walker III", "pos": "RB", "implied_pts": 19.75, "p_td": 0.559, "mkt_p": 0.5237, "p_bet": 0.5414, "odds": -125, "dec": 1.8, "leg_ev": -0.0255, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739457_13L88808Q11336808573Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0038134", "display_name": "Kenneth Walker III", "pos": "RB", "implied_pts": 19.75, "p_td": 0.559, "mkt_p": 0.5237, "p_bet": 0.5414, "odds": -130, "dec": 1.7692, "leg_ev": -0.0421, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=40845134"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0038543", "display_name": "Jaxon Smith-Njigba", "pos": "WR", "implied_pts": 22.75, "p_td": 0.409, "mkt_p": 0.4308, "p_bet": 0.4198, "odds": 120, "dec": 2.2, "leg_ev": -0.0763, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739443_13L88808Q11896367839Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0038543", "display_name": "Jaxon Smith-Njigba", "pos": "WR", "implied_pts": 22.75, "p_td": 0.409, "mkt_p": 0.4308, "p_bet": 0.4198, "odds": 120, "dec": 2.2, "leg_ev": -0.0763, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=36914881"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036358", "display_name": "CeeDee Lamb", "pos": "WR", "implied_pts": 24.0, "p_td": 0.344, "mkt_p": 0.4248, "p_bet": 0.3836, "odds": 120, "dec": 2.2, "leg_ev": -0.1561, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767595_13L88808Q1759561049Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036358", "display_name": "CeeDee Lamb", "pos": "WR", "implied_pts": 24.0, "p_td": 0.344, "mkt_p": 0.4248, "p_bet": 0.3836, "odds": 120, "dec": 2.2, "leg_ev": -0.1561, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=16602369"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0038797", "display_name": "Emanuel Wilson", "pos": "RB", "implied_pts": 22.75, "p_td": 0.295, "mkt_p": 0.4297, "p_bet": 0.3596, "odds": 125, "dec": 2.25, "leg_ev": -0.1909, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739446_13L88808Q11707072676Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0038797", "display_name": "Emanuel Wilson", "pos": "RB", "implied_pts": 22.75, "p_td": 0.295, "mkt_p": 0.4297, "p_bet": 0.3596, "odds": 120, "dec": 2.2, "leg_ev": -0.2089, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=60595402"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0037247", "display_name": "George Pickens", "pos": "WR", "implied_pts": 24.0, "p_td": 0.289, "mkt_p": 0.3527, "p_bet": 0.32, "odds": 165, "dec": 2.65, "leg_ev": -0.152, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767596_13L88808Q1-1127265655Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0037247", "display_name": "George Pickens", "pos": "WR", "implied_pts": 24.0, "p_td": 0.289, "mkt_p": 0.3527, "p_bet": 0.32, "odds": 165, "dec": 2.65, "leg_ev": -0.152, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=26919456"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0034351", "display_name": "Dallas Goedert", "pos": "TE", "implied_pts": 19.5, "p_td": 0.28, "mkt_p": 0.3223, "p_bet": 0.3007, "odds": 190, "dec": 2.9, "leg_ev": -0.1279, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767583_13L88808Q1-1879851941Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0034351", "display_name": "Dallas Goedert", "pos": "TE", "implied_pts": 19.5, "p_td": 0.28, "mkt_p": 0.3223, "p_bet": 0.3007, "odds": 190, "dec": 2.9, "leg_ev": -0.1279, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=18545062"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040024", "display_name": "Darius Cooper", "pos": "WR", "implied_pts": 19.5, "p_td": 0.27, "mkt_p": 0.2749, "p_bet": 0.2724, "odds": 240, "dec": 3.4, "leg_ev": -0.0737, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767588_13L88808Q11627968604Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040024", "display_name": "Darius Cooper", "pos": "WR", "implied_pts": 19.5, "p_td": 0.27, "mkt_p": 0.2749, "p_bet": 0.2724, "odds": 240, "dec": 3.4, "leg_ev": -0.0737, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=88027551"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0039793", "display_name": "AJ Barner", "pos": "TE", "implied_pts": 22.75, "p_td": 0.248, "mkt_p": 0.2614, "p_bet": 0.2547, "odds": 255, "dec": 3.55, "leg_ev": -0.096, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739447_13L88808Q1-37446320Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0039793", "display_name": "AJ Barner", "pos": "TE", "implied_pts": 22.75, "p_td": 0.248, "mkt_p": 0.2614, "p_bet": 0.2547, "odds": 260, "dec": 3.6, "leg_ev": -0.0832, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=48504871"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0039410", "display_name": "Ryan Flournoy", "pos": "WR", "implied_pts": 24.0, "p_td": 0.228, "mkt_p": 0.201, "p_bet": 0.2142, "odds": 380, "dec": 4.8, "leg_ev": 0.0281, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767598_13L88808Q1-24141105Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0039410", "display_name": "Ryan Flournoy", "pos": "WR", "implied_pts": 24.0, "p_td": 0.228, "mkt_p": 0.201, "p_bet": 0.2142, "odds": 370, "dec": 4.7, "leg_ev": 0.0067, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=66499297"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0039299", "display_name": "George Holani", "pos": "RB", "implied_pts": 22.75, "p_td": 0.22, "mkt_p": 0.1844, "p_bet": 0.2016, "odds": 425, "dec": 5.25, "leg_ev": 0.0584, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739444_13L88808Q12121391530Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0039299", "display_name": "George Holani", "pos": "RB", "implied_pts": 22.75, "p_td": 0.22, "mkt_p": 0.1844, "p_bet": 0.2016, "odds": 450, "dec": 5.5, "leg_ev": 0.1088, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=48275809"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0033908", "display_name": "Cooper Kupp", "pos": "WR", "implied_pts": 22.75, "p_td": 0.191, "mkt_p": 0.1869, "p_bet": 0.1889, "odds": 400, "dec": 5.0, "leg_ev": -0.0553, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739449_13L88808Q1-1216598181Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0033908", "display_name": "Cooper Kupp", "pos": "WR", "implied_pts": 22.75, "p_td": 0.191, "mkt_p": 0.1869, "p_bet": 0.1889, "odds": 400, "dec": 5.0, "leg_ev": -0.0553, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=14153646"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0039894", "display_name": "Xavier Worthy", "pos": "WR", "implied_pts": 19.75, "p_td": 0.18, "mkt_p": 0.2714, "p_bet": 0.2224, "odds": 260, "dec": 3.6, "leg_ev": -0.1995, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739458_13L88808Q1439564023Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0039894", "display_name": "Xavier Worthy", "pos": "WR", "implied_pts": 19.75, "p_td": 0.18, "mkt_p": 0.2714, "p_bet": 0.2224, "odds": 260, "dec": 3.6, "leg_ev": -0.1995, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=42323715"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0030506", "display_name": "Travis Kelce", "pos": "TE", "implied_pts": 19.75, "p_td": 0.179, "mkt_p": 0.2944, "p_bet": 0.2317, "odds": 220, "dec": 3.2, "leg_ev": -0.2585, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739459_13L88808Q1-511040682Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0030506", "display_name": "Travis Kelce", "pos": "TE", "implied_pts": 19.75, "p_td": 0.179, "mkt_p": 0.2944, "p_bet": 0.2317, "odds": 210, "dec": 3.1, "leg_ev": -0.2817, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=8874189"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0038041", "display_name": "Jake Ferguson", "pos": "TE", "implied_pts": 24.0, "p_td": 0.174, "mkt_p": 0.2596, "p_bet": 0.2137, "odds": 260, "dec": 3.6, "leg_ev": -0.2307, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767597_13L88808Q1-144445670Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0038041", "display_name": "Jake Ferguson", "pos": "TE", "implied_pts": 24.0, "p_td": 0.174, "mkt_p": 0.2596, "p_bet": 0.2137, "odds": 260, "dec": 3.6, "leg_ev": -0.2307, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=27163247"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0040646", "display_name": "Jalen Royals", "pos": "WR", "implied_pts": 19.75, "p_td": 0.14, "mkt_p": 0.1628, "p_bet": 0.1511, "odds": 500, "dec": 6.0, "leg_ev": -0.0936, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739467_13L88808Q1-2027321620Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0040646", "display_name": "Jalen Royals", "pos": "WR", "implied_pts": 19.75, "p_td": 0.14, "mkt_p": 0.1628, "p_bet": 0.1511, "odds": 500, "dec": 6.0, "leg_ev": -0.0936, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=60077167"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040867", "display_name": "Makai Lemon", "pos": "WR", "implied_pts": 19.5, "p_td": 0.139, "mkt_p": 0.2336, "p_bet": 0.1816, "odds": 300, "dec": 4.0, "leg_ev": -0.2737, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767586_13L88808Q11792281206Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040867", "display_name": "Makai Lemon", "pos": "WR", "implied_pts": 19.5, "p_td": 0.139, "mkt_p": 0.2336, "p_bet": 0.1816, "odds": 300, "dec": 4.0, "leg_ev": -0.2737, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=82342249"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0037545", "display_name": "Rashid Shaheed", "pos": "WR", "implied_pts": 22.75, "p_td": 0.128, "mkt_p": 0.1947, "p_bet": 0.1585, "odds": 425, "dec": 5.25, "leg_ev": -0.1677, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739448_13L88808Q1-1094222466Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0037545", "display_name": "Rashid Shaheed", "pos": "WR", "implied_pts": 22.75, "p_td": 0.128, "mkt_p": 0.1947, "p_bet": 0.1585, "odds": 380, "dec": 4.8, "leg_ev": -0.2391, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=49446706"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0040648", "display_name": "Tory Horton", "pos": "WR", "implied_pts": 22.75, "p_td": 0.127, "mkt_p": 0.1069, "p_bet": 0.1166, "odds": 850, "dec": 9.5, "leg_ev": 0.1074, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739451_13L88808Q1-2108815135Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "SEA", "opp": "KC", "player_id": "00-0040648", "display_name": "Tory Horton", "pos": "WR", "implied_pts": 22.75, "p_td": 0.127, "mkt_p": 0.1069, "p_bet": 0.1166, "odds": 750, "dec": 8.5, "leg_ev": -0.0091, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=49171220"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0033077", "display_name": "Dak Prescott", "pos": "QB", "implied_pts": 24.0, "p_td": 0.089, "mkt_p": 0.1438, "p_bet": 0.1135, "odds": 550, "dec": 6.5, "leg_ev": -0.262, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767599_13L88808Q1795642865Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0033077", "display_name": "Dak Prescott", "pos": "QB", "implied_pts": 24.0, "p_td": 0.089, "mkt_p": 0.1438, "p_bet": 0.1135, "odds": 550, "dec": 6.5, "leg_ev": -0.262, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=8776314"}, {"book": "draftkings", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0036637", "display_name": "Noah Gray", "pos": "TE", "implied_pts": 19.75, "p_td": 0.082, "mkt_p": 0.1335, "p_bet": 0.105, "odds": 600, "dec": 7.0, "leg_ev": -0.265, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380442885%232326739464_13L88808Q1-1856213575Q20"}, {"book": "fanduel", "game_id": "2026_07_KC_SEA", "gameday": "2026-10-25", "gametime": "20:20", "team": "KC", "opp": "SEA", "player_id": "00-0036637", "display_name": "Noah Gray", "pos": "TE", "implied_pts": 19.75, "p_td": 0.082, "mkt_p": 0.1335, "p_bet": 0.105, "odds": 650, "dec": 7.5, "leg_ev": -0.2125, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.617959478&selectionId=40853570"}], "why": {"00-0036997": {"headline": "13 red-zone touches in DAL's last 3 games, 41% of the team's, most on the team", "reasons": [{"t": "13 red-zone touches in DAL's last 3 games, 41% of the team's, most on the team", "tone": "+"}, {"t": "10 carries inside the 10 in DAL's last 3 games", "tone": "+"}], "recent": [{"wk": 2, "snap": 80, "rz": 4, "i10": 1, "ez": 0, "td": 0}, {"wk": 3, "snap": 76, "rz": 5, "i10": 3, "ez": 0, "td": 1}, {"wk": 4, "snap": 74, "rz": 8, "i10": 6, "ez": 0, "td": 3}, {"wk": 5, "snap": 85, "rz": 2, "i10": 2, "ez": 0, "td": 1}, {"wk": 6, "snap": 73, "rz": 3, "i10": 2, "ez": 0, "td": 1}]}, "00-0038134": {"headline": "22 red-zone touches in KC's last 3 games, 63% of the team's, most on the team", "reasons": [{"t": "22 red-zone touches in KC's last 3 games, 63% of the team's, most on the team", "tone": "+"}, {"t": "14 carries inside the 10 in KC's last 3 games", "tone": "+"}], "recent": [{"wk": 1, "snap": 68, "rz": 4, "i10": 2, "ez": 0, "td": 2}, {"wk": 2, "snap": 82, "rz": 7, "i10": 3, "ez": 1, "td": 0}, {"wk": 3, "snap": 73, "rz": 9, "i10": 3, "ez": 0, "td": 2}, {"wk": 4, "snap": 75, "rz": 4, "i10": 4, "ez": 0, "td": 2}, {"wk": 6, "snap": 74, "rz": 9, "i10": 7, "ez": 0, "td": 2}]}, "00-0038543": {"headline": "7 end-zone targets this season (team-high)", "reasons": [{"t": "7 end-zone targets this season (team-high)", "tone": "+"}, {"t": "KC hasn't allowed a TD to a WR in 5 games", "tone": "-"}, {"t": "7 TDs on touches worth 4.0; running hot", "tone": "-"}], "recent": [{"wk": 2, "snap": 67, "rz": 3, "i10": 0, "ez": 2, "td": 3}, {"wk": 3, "snap": 87, "rz": 3, "i10": 0, "ez": 3, "td": 2}, {"wk": 4, "snap": 88, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 84, "rz": 1, "i10": 0, "ez": 0, "td": 1}, {"wk": 6, "snap": 92, "rz": 0, "i10": 0, "ez": 1, "td": 0}]}, "00-0036358": {"headline": "8 end-zone targets this season (team-high)", "reasons": [{"t": "8 end-zone targets this season (team-high)", "tone": "+"}, {"t": "7 red-zone looks in DAL's last 3 games, 22% of the team's, 2nd on the team", "tone": "+"}, {"t": "PHI has allowed 7 TDs to WRs in 6 games, 3rd-most in the league", "tone": "+"}, {"t": "Books 42% vs model 34%: the books may know something (role or injury news)", "tone": "!"}], "recent": [{"wk": 2, "snap": 75, "rz": 1, "i10": 0, "ez": 2, "td": 2}, {"wk": 3, "snap": 82, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 86, "rz": 3, "i10": 0, "ez": 2, "td": 1}, {"wk": 5, "snap": 57, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 88, "rz": 4, "i10": 0, "ez": 3, "td": 0}]}, "00-0038797": {"headline": "6 red-zone touches in SEA's last 3 games, 38% of the team's, most on the team", "reasons": [{"t": "6 red-zone touches in SEA's last 3 games, 38% of the team's, most on the team", "tone": "+"}, {"t": "4 carries inside the 10 in SEA's last 3 games", "tone": "+"}, {"t": "His touches were worth 4.5 TDs this season; he has 3. Due.", "tone": "+"}, {"t": "Snaps fell to 32% last game from 52%", "tone": "-"}, {"t": "Books 43% vs model 30%: the books may know something (role or injury news)", "tone": "!"}], "recent": [{"wk": 2, "snap": 41, "rz": 8, "i10": 5, "ez": 0, "td": 0}, {"wk": 3, "snap": 36, "rz": 2, "i10": 2, "ez": 0, "td": 0}, {"wk": 4, "snap": 60, "rz": 3, "i10": 2, "ez": 0, "td": 2}, {"wk": 5, "snap": 59, "rz": 3, "i10": 2, "ez": 0, "td": 1}, {"wk": 6, "snap": 32, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0037247": {"headline": "4 end-zone targets this season", "reasons": [{"t": "4 end-zone targets this season", "tone": "+"}, {"t": "PHI has allowed 7 TDs to WRs in 6 games, 3rd-most in the league", "tone": "+"}, {"t": "His touches were worth 2.9 TDs this season; he has 1. Due.", "tone": "+"}], "recent": [{"wk": 2, "snap": 76, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 85, "rz": 2, "i10": 0, "ez": 2, "td": 0}, {"wk": 4, "snap": 86, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 88, "rz": 2, "i10": 0, "ez": 2, "td": 1}, {"wk": 6, "snap": 88, "rz": 1, "i10": 0, "ez": 0, "td": 0}]}, "00-0034351": {"headline": "Snaps jumped to 81% last game from 63%", "reasons": [{"t": "Missed 1 of PHI's last 3 games; check that he's back to a full role", "tone": "!"}, {"t": "No red-zone touches in PHI's last 3 games while the team had 18", "tone": "-"}, {"t": "Snaps jumped to 81% last game from 63%", "tone": "+"}], "recent": [{"wk": 1, "snap": 95, "rz": 2, "i10": 0, "ez": 1, "td": 2}, {"wk": 2, "snap": 25, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 69, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 81, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0040024": {"headline": "3 end-zone targets this season", "reasons": [{"t": "3 end-zone targets this season", "tone": "+"}, {"t": "3 red-zone looks in PHI's last 3 games, 17% of the team's", "tone": "+"}, {"t": "DAL has allowed 7 TDs to WRs in 6 games, 3rd-most in the league", "tone": "+"}, {"t": "4 TDs on touches worth 1.7; running hot", "tone": "-"}], "recent": [{"wk": 2, "snap": 41, "rz": 1, "i10": 0, "ez": 1, "td": 1}, {"wk": 3, "snap": 10, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 90, "rz": 3, "i10": 0, "ez": 2, "td": 2}, {"wk": 5, "snap": 85, "rz": 0, "i10": 0, "ez": 0, "td": 1}, {"wk": 6, "snap": 61, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0039793": {"headline": "2 end-zone targets this season", "reasons": [{"t": "2 end-zone targets this season", "tone": "+"}, {"t": "KC has allowed 4 TDs to TEs in 5 games, 5th-most in the league", "tone": "+"}], "recent": [{"wk": 2, "snap": 80, "rz": 1, "i10": 1, "ez": 0, "td": 1}, {"wk": 3, "snap": 91, "rz": 4, "i10": 0, "ez": 2, "td": 0}, {"wk": 4, "snap": 90, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 95, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 93, "rz": 1, "i10": 0, "ez": 0, "td": 0}]}, "00-0039410": {"headline": "2 end-zone targets this season", "reasons": [{"t": "2 end-zone targets this season", "tone": "+"}, {"t": "PHI has allowed 7 TDs to WRs in 6 games, 3rd-most in the league", "tone": "+"}, {"t": "Snaps jumped to 87% last game from 69%", "tone": "+"}], "recent": [{"wk": 2, "snap": 76, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 66, "rz": 4, "i10": 0, "ez": 2, "td": 0}, {"wk": 4, "snap": 74, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 68, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 87, "rz": 2, "i10": 0, "ez": 0, "td": 1}]}, "00-0039299": {"headline": "Snaps jumped to 58% last game from 38%", "reasons": [{"t": "Snaps jumped to 58% last game from 38%", "tone": "+"}, {"t": "His touches were worth 2.7 TDs this season; he has 1. Due.", "tone": "+"}], "recent": [{"wk": 2, "snap": 26, "rz": 4, "i10": 2, "ez": 0, "td": 0}, {"wk": 3, "snap": 36, "rz": 1, "i10": 1, "ez": 0, "td": 0}, {"wk": 4, "snap": 37, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 41, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 58, "rz": 2, "i10": 1, "ez": 0, "td": 1}]}, "00-0033908": {"headline": "Snaps jumped to 85% last game from 68%", "reasons": [{"t": "Snaps jumped to 85% last game from 68%", "tone": "+"}, {"t": "KC hasn't allowed a TD to a WR in 5 games", "tone": "-"}], "recent": [{"wk": 2, "snap": 43, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 67, "rz": 1, "i10": 0, "ez": 1, "td": 1}, {"wk": 4, "snap": 57, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 81, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 85, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0039894": {"headline": "", "reasons": [{"t": "No red-zone touches in KC's last 3 games while the team had 35", "tone": "-"}, {"t": "Books 27% vs model 18%: the books may know something (role or injury news)", "tone": "!"}], "recent": [{"wk": 1, "snap": 77, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 2, "snap": 86, "rz": 3, "i10": 0, "ez": 1, "td": 1}, {"wk": 3, "snap": 83, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 75, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 84, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0030506": {"headline": "2 end-zone targets this season (team-high)", "reasons": [{"t": "2 end-zone targets this season (team-high)", "tone": "+"}, {"t": "Snaps fell to 66% last game from 82%", "tone": "-"}, {"t": "Books 29% vs model 18%: the books may know something (role or injury news)", "tone": "!"}], "recent": [{"wk": 1, "snap": 71, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 2, "snap": 85, "rz": 1, "i10": 0, "ez": 0, "td": 1}, {"wk": 3, "snap": 79, "rz": 1, "i10": 0, "ez": 1, "td": 1}, {"wk": 4, "snap": 83, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 66, "rz": 1, "i10": 0, "ez": 1, "td": 0}]}, "00-0038041": {"headline": "2 end-zone targets this season", "reasons": [{"t": "No red-zone touches in DAL's last 3 games while the team had 32", "tone": "-"}, {"t": "2 end-zone targets this season", "tone": "+"}, {"t": "Snaps fell to 54% last game from 74%", "tone": "-"}, {"t": "Books 26% vs model 17%: the books may know something (role or injury news)", "tone": "!"}], "recent": [{"wk": 2, "snap": 60, "rz": 2, "i10": 0, "ez": 2, "td": 2}, {"wk": 3, "snap": 69, "rz": 1, "i10": 0, "ez": 0, "td": 1}, {"wk": 4, "snap": 71, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 83, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 54, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0040646": {"headline": "2 end-zone targets this season", "reasons": [{"t": "2 end-zone targets this season", "tone": "+"}, {"t": "Snaps jumped to 74% last game from 32%", "tone": "+"}], "recent": [{"wk": 2, "snap": 15, "rz": 1, "i10": 0, "ez": 1, "td": 1}, {"wk": 3, "snap": 19, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 63, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 74, "rz": 1, "i10": 0, "ez": 1, "td": 0}]}, "00-0040867": {"headline": "DAL has allowed 7 TDs to WRs in 6 games, 3rd-most in the league", "reasons": [{"t": "No red-zone touches in PHI's last 3 games while the team had 18", "tone": "-"}, {"t": "DAL has allowed 7 TDs to WRs in 6 games, 3rd-most in the league", "tone": "+"}, {"t": "Books 23% vs model 14%: the books may know something (role or injury news)", "tone": "!"}], "recent": [{"wk": 2, "snap": 63, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 70, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 74, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 81, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 81, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0037545": {"headline": "", "reasons": [{"t": "KC hasn't allowed a TD to a WR in 5 games", "tone": "-"}], "recent": [{"wk": 2, "snap": 56, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 46, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 60, "rz": 1, "i10": 0, "ez": 0, "td": 1}, {"wk": 5, "snap": 46, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 46, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0040648": {"headline": "Snaps jumped to 46% last game from 19%", "reasons": [{"t": "Snaps jumped to 46% last game from 19%", "tone": "+"}, {"t": "KC hasn't allowed a TD to a WR in 5 games", "tone": "-"}], "recent": [{"wk": 2, "snap": 31, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 22, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 17, "rz": 1, "i10": 0, "ez": 0, "td": 1}, {"wk": 5, "snap": 17, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 46, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0033077": {"headline": "PHI has allowed 3 TDs to QBs in 6 games, 1st-most in the league", "reasons": [{"t": "PHI has allowed 3 TDs to QBs in 6 games, 1st-most in the league", "tone": "+"}], "recent": [{"wk": 2, "snap": 100, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 100, "rz": 1, "i10": 1, "ez": 0, "td": 0}, {"wk": 4, "snap": 100, "rz": 1, "i10": 1, "ez": 0, "td": 0}, {"wk": 5, "snap": 100, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 100, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0036637": {"headline": "", "reasons": [], "recent": [{"wk": 1, "snap": 55, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 2, "snap": 50, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 63, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 68, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 64, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}}, "recap": null};
+const DATA = {"meta": {"corr_same_team": 0.92, "corr_opponent": 1.03, "model_weight": 0.5, "label": "2026 Week 7 \u00b7 odds as of Sun Oct 25, 9:10 PM ET \u00b7 9 players"}, "legs": [{"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036997", "display_name": "Javonte Williams", "pos": "RB", "implied_pts": 24.0, "p_td": 0.588, "mkt_p": 0.5779, "p_bet": 0.5829, "odds": -160, "dec": 1.625, "leg_ev": -0.0527, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767594_13L88808Q1-2070504203Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036997", "display_name": "Javonte Williams", "pos": "RB", "implied_pts": 24.0, "p_td": 0.588, "mkt_p": 0.5779, "p_bet": 0.5829, "odds": -170, "dec": 1.5882, "leg_ev": -0.0741, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=37101846"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036358", "display_name": "CeeDee Lamb", "pos": "WR", "implied_pts": 24.0, "p_td": 0.344, "mkt_p": 0.4248, "p_bet": 0.3836, "odds": 120, "dec": 2.2, "leg_ev": -0.1561, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767595_13L88808Q1759561049Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0036358", "display_name": "CeeDee Lamb", "pos": "WR", "implied_pts": 24.0, "p_td": 0.344, "mkt_p": 0.4248, "p_bet": 0.3836, "odds": 120, "dec": 2.2, "leg_ev": -0.1561, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=16602369"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0037247", "display_name": "George Pickens", "pos": "WR", "implied_pts": 24.0, "p_td": 0.289, "mkt_p": 0.3595, "p_bet": 0.3232, "odds": 160, "dec": 2.6, "leg_ev": -0.1596, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767596_13L88808Q1-1127265655Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0037247", "display_name": "George Pickens", "pos": "WR", "implied_pts": 24.0, "p_td": 0.289, "mkt_p": 0.3595, "p_bet": 0.3232, "odds": 165, "dec": 2.65, "leg_ev": -0.1435, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=26919456"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0034351", "display_name": "Dallas Goedert", "pos": "TE", "implied_pts": 19.5, "p_td": 0.28, "mkt_p": 0.3195, "p_bet": 0.2994, "odds": 195, "dec": 2.95, "leg_ev": -0.1168, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767583_13L88808Q1-1879851941Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0034351", "display_name": "Dallas Goedert", "pos": "TE", "implied_pts": 19.5, "p_td": 0.28, "mkt_p": 0.3195, "p_bet": 0.2994, "odds": 190, "dec": 2.9, "leg_ev": -0.1318, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=18545062"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040024", "display_name": "Darius Cooper", "pos": "WR", "implied_pts": 19.5, "p_td": 0.27, "mkt_p": 0.2749, "p_bet": 0.2724, "odds": 240, "dec": 3.4, "leg_ev": -0.0737, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767588_13L88808Q11627968604Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040024", "display_name": "Darius Cooper", "pos": "WR", "implied_pts": 19.5, "p_td": 0.27, "mkt_p": 0.2749, "p_bet": 0.2724, "odds": 240, "dec": 3.4, "leg_ev": -0.0737, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=88027551"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0039410", "display_name": "Ryan Flournoy", "pos": "WR", "implied_pts": 24.0, "p_td": 0.228, "mkt_p": 0.201, "p_bet": 0.2142, "odds": 400, "dec": 5.0, "leg_ev": 0.071, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767598_13L88808Q1-24141105Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0039410", "display_name": "Ryan Flournoy", "pos": "WR", "implied_pts": 24.0, "p_td": 0.228, "mkt_p": 0.201, "p_bet": 0.2142, "odds": 370, "dec": 4.7, "leg_ev": 0.0067, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=66499297"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0038041", "display_name": "Jake Ferguson", "pos": "TE", "implied_pts": 24.0, "p_td": 0.175, "mkt_p": 0.2614, "p_bet": 0.2151, "odds": 255, "dec": 3.55, "leg_ev": -0.2365, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767597_13L88808Q1-144445670Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0038041", "display_name": "Jake Ferguson", "pos": "TE", "implied_pts": 24.0, "p_td": 0.175, "mkt_p": 0.2614, "p_bet": 0.2151, "odds": 260, "dec": 3.6, "leg_ev": -0.2257, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=27163247"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040867", "display_name": "Makai Lemon", "pos": "WR", "implied_pts": 19.5, "p_td": 0.138, "mkt_p": 0.2336, "p_bet": 0.181, "odds": 300, "dec": 4.0, "leg_ev": -0.2762, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767586_13L88808Q11792281206Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "PHI", "opp": "DAL", "player_id": "00-0040867", "display_name": "Makai Lemon", "pos": "WR", "implied_pts": 19.5, "p_td": 0.138, "mkt_p": 0.2336, "p_bet": 0.181, "odds": 300, "dec": 4.0, "leg_ev": -0.2762, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=82342249"}, {"book": "draftkings", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0033077", "display_name": "Dak Prescott", "pos": "QB", "implied_pts": 24.0, "p_td": 0.089, "mkt_p": 0.1335, "p_bet": 0.1093, "odds": 600, "dec": 7.0, "leg_ev": -0.235, "link": "https://sportsbook.draftkings.com/?outcomes=0QA380448718%232326767599_13L88808Q1795642865Q20"}, {"book": "fanduel", "game_id": "2026_07_DAL_PHI", "gameday": "2026-10-26", "gametime": "20:15", "team": "DAL", "opp": "PHI", "player_id": "00-0033077", "display_name": "Dak Prescott", "pos": "QB", "implied_pts": 24.0, "p_td": 0.089, "mkt_p": 0.1335, "p_bet": 0.1093, "odds": 550, "dec": 6.5, "leg_ev": -0.2897, "link": "https://sportsbook.fanduel.com/addToBetslip?marketId=42.618136715&selectionId=8776314"}], "why": {"00-0036997": {"headline": "13 red-zone touches in DAL's last 3 games, 41% of the team's, most on the team", "reasons": [{"t": "13 red-zone touches in DAL's last 3 games, 41% of the team's, most on the team", "tone": "+"}, {"t": "10 carries inside the 10 in DAL's last 3 games", "tone": "+"}, {"t": "DAL implied for 24.0 points, the highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 80, "rz": 4, "i10": 1, "ez": 0, "td": 0}, {"wk": 3, "snap": 76, "rz": 5, "i10": 3, "ez": 0, "td": 1}, {"wk": 4, "snap": 74, "rz": 8, "i10": 6, "ez": 0, "td": 3}, {"wk": 5, "snap": 85, "rz": 2, "i10": 2, "ez": 0, "td": 1}, {"wk": 6, "snap": 73, "rz": 3, "i10": 2, "ez": 0, "td": 1}]}, "00-0036358": {"headline": "8 end-zone targets this season (team-high)", "reasons": [{"t": "8 end-zone targets this season (team-high)", "tone": "+"}, {"t": "7 red-zone looks in DAL's last 3 games, 22% of the team's, 2nd on the team", "tone": "+"}, {"t": "PHI has allowed 7 TDs to WRs in 6 games, 4th-most in the league", "tone": "+"}, {"t": "Books 42% vs model 34%: the books may know something (role or injury news)", "tone": "!"}, {"t": "DAL implied for 24.0 points, the highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 75, "rz": 1, "i10": 0, "ez": 2, "td": 2}, {"wk": 3, "snap": 82, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 86, "rz": 3, "i10": 0, "ez": 2, "td": 1}, {"wk": 5, "snap": 57, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 88, "rz": 4, "i10": 0, "ez": 3, "td": 0}]}, "00-0037247": {"headline": "4 end-zone targets this season", "reasons": [{"t": "4 end-zone targets this season", "tone": "+"}, {"t": "PHI has allowed 7 TDs to WRs in 6 games, 4th-most in the league", "tone": "+"}, {"t": "His touches were worth 2.9 TDs this season; he has 1. Due.", "tone": "+"}, {"t": "DAL implied for 24.0 points, the highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 76, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 85, "rz": 2, "i10": 0, "ez": 2, "td": 0}, {"wk": 4, "snap": 86, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 88, "rz": 2, "i10": 0, "ez": 2, "td": 1}, {"wk": 6, "snap": 88, "rz": 1, "i10": 0, "ez": 0, "td": 0}]}, "00-0034351": {"headline": "Snaps jumped to 81% last game from 63%", "reasons": [{"t": "Missed 1 of PHI's last 3 games; check that he's back to a full role", "tone": "!"}, {"t": "No red-zone touches in PHI's last 3 games while the team had 18", "tone": "-"}, {"t": "Snaps jumped to 81% last game from 63%", "tone": "+"}, {"t": "PHI implied for 19.5 points, 4th-highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 1, "snap": 95, "rz": 2, "i10": 0, "ez": 1, "td": 2}, {"wk": 2, "snap": 25, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 69, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 81, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0040024": {"headline": "3 end-zone targets this season", "reasons": [{"t": "3 end-zone targets this season", "tone": "+"}, {"t": "3 red-zone looks in PHI's last 3 games, 17% of the team's", "tone": "+"}, {"t": "DAL has allowed 7 TDs to WRs in 6 games, 4th-most in the league", "tone": "+"}, {"t": "PHI implied for 19.5 points, 4th-highest of 4 teams this week", "tone": "+"}, {"t": "4 TDs on touches worth 1.7; running hot", "tone": "-"}], "recent": [{"wk": 2, "snap": 41, "rz": 1, "i10": 0, "ez": 1, "td": 1}, {"wk": 3, "snap": 10, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 90, "rz": 3, "i10": 0, "ez": 2, "td": 2}, {"wk": 5, "snap": 85, "rz": 0, "i10": 0, "ez": 0, "td": 1}, {"wk": 6, "snap": 61, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0039410": {"headline": "2 end-zone targets this season", "reasons": [{"t": "2 end-zone targets this season", "tone": "+"}, {"t": "Snaps jumped to 87% last game from 69%", "tone": "+"}, {"t": "PHI has allowed 7 TDs to WRs in 6 games, 4th-most in the league", "tone": "+"}, {"t": "DAL implied for 24.0 points, the highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 76, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 66, "rz": 4, "i10": 0, "ez": 2, "td": 0}, {"wk": 4, "snap": 74, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 68, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 87, "rz": 2, "i10": 0, "ez": 0, "td": 1}]}, "00-0038041": {"headline": "2 end-zone targets this season", "reasons": [{"t": "No red-zone touches in DAL's last 3 games while the team had 32", "tone": "-"}, {"t": "2 end-zone targets this season", "tone": "+"}, {"t": "Snaps fell to 54% last game from 74%", "tone": "-"}, {"t": "Books 26% vs model 18%: the books may know something (role or injury news)", "tone": "!"}, {"t": "DAL implied for 24.0 points, the highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 60, "rz": 2, "i10": 0, "ez": 2, "td": 2}, {"wk": 3, "snap": 69, "rz": 1, "i10": 0, "ez": 0, "td": 1}, {"wk": 4, "snap": 71, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 83, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 54, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0040867": {"headline": "DAL has allowed 7 TDs to WRs in 6 games, 4th-most in the league", "reasons": [{"t": "No red-zone touches in PHI's last 3 games while the team had 18", "tone": "-"}, {"t": "DAL has allowed 7 TDs to WRs in 6 games, 4th-most in the league", "tone": "+"}, {"t": "Books 23% vs model 14%: the books may know something (role or injury news)", "tone": "!"}, {"t": "PHI implied for 19.5 points, 4th-highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 63, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 70, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 4, "snap": 74, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 5, "snap": 81, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 81, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}, "00-0033077": {"headline": "PHI has allowed 3 TDs to QBs in 6 games, 1st-most in the league", "reasons": [{"t": "PHI has allowed 3 TDs to QBs in 6 games, 1st-most in the league", "tone": "+"}, {"t": "DAL implied for 24.0 points, the highest of 4 teams this week", "tone": "+"}], "recent": [{"wk": 2, "snap": 100, "rz": 1, "i10": 0, "ez": 0, "td": 0}, {"wk": 3, "snap": 100, "rz": 1, "i10": 1, "ez": 0, "td": 0}, {"wk": 4, "snap": 100, "rz": 1, "i10": 1, "ez": 0, "td": 0}, {"wk": 5, "snap": 100, "rz": 0, "i10": 0, "ez": 0, "td": 0}, {"wk": 6, "snap": 100, "rz": 0, "i10": 0, "ez": 0, "td": 0}]}}, "recap": null};
 const BOOKS = { fanduel: { name: "FanDuel", url: "https://sportsbook.fanduel.com/navigation/nfl" },
                 draftkings: { name: "DraftKings", url: "https://sportsbook.draftkings.com/leagues/football/nfl" } };
 const TEAM = { ARI:"#97233F", ATL:"#A71930", BAL:"#241773", BUF:"#00338D", CAR:"#0085CA", CHI:"#0B162A", CIN:"#FB4F14", CLE:"#311D00",
@@ -323,7 +377,7 @@ const LIGHT_TEAMS = new Set(["NO", "PIT"]);
 const MEGA_MODES = [["safest", "Safest", 0], ["1m", "Pays +1M", 1e6], ["5m", "Pays +5M", 5e6]];
 const C = DATA.meta, WHY = DATA.why || {};
 const S = { tab: "best", book: "fanduel", target: 2500, maxLegs: 5, sameGame: false, locks: new Set(), cuts: new Set(),
-            pick: 0, megaMode: "safest", megaPick: {}, q: "", pos: "All", sort: "chance", flipped: new Set() };
+            pick: 0, nTix: 10, stake: 2, cap: .5, tixMine: false, mine: [], megaMode: "safest", megaPick: {}, q: "", pos: "All", sort: "chance", flipped: new Set() };
 
 /* ---------- numbers ---------- */
 const fmt = a => (a > 0 ? "+" : "") + Math.round(a).toLocaleString("en-US");
@@ -351,11 +405,12 @@ const pack = rows => { const p = joint(rows), dec = rows.reduce((a, r) => a * r.
   return { rows, p, dec, am: toAm(dec), ev: p * dec - 1, sgp: new Set(rows.map(r => r.game_id)).size < rows.length }; };
 const bookLegs = () => DATA.legs.filter(l => l.book === S.book);
 
-function search() {
+// Every slip the beam finds that pays at least `target` (and at most maxDec), most likely first.
+function searchAll(target, maxDec = Infinity, beam = 300) {
   const all = bookLegs().filter(l => !S.cuts.has(l.display_name));
   const locked = all.filter(l => S.locks.has(l.display_name));
   const cand = all.filter(l => !S.locks.has(l.display_name)).sort((a, b) => b.p_bet - a.p_bet).slice(0, 60);
-  const tgt = Math.log(1 + S.target / 100), beam = 300;
+  const tgt = Math.log(1 + target / 100), cap = Math.log(maxDec);
   const found = new Map();
   let states = [{ idx: [], ld: locked.reduce((a, r) => a + Math.log(r.dec), 0) }];
   if (locked.length && states[0].ld >= tgt) found.set("", locked);
@@ -367,7 +422,7 @@ function search() {
       for (let j = last + 1; j < cand.length; j++) {
         if (!S.sameGame && games.has(cand[j].game_id)) continue;
         const idx = st.idx.concat(j), ld = st.ld + Math.log(cand[j].dec), rows = base.concat(cand[j]);
-        if (ld >= tgt) found.set(idx.join(","), rows); else nxt.push({ idx, ld, p: joint(rows) });
+        if (ld >= tgt) { if (ld <= cap) found.set(idx.join(","), rows); } else nxt.push({ idx, ld, p: joint(rows) });
       }
     }
     if (!nxt.length) break;
@@ -376,8 +431,11 @@ function search() {
     for (const s of [...nxt].sort((a, b) => (Math.log(b.p) + b.ld) - (Math.log(a.p) + a.ld)).slice(0, beam / 2)) keep.set(s.idx.join(","), s);
     states = [...keep.values()];
   }
-  const out = [...found.values()].map(pack).sort((a, b) => b.p - a.p), kept = [];
-  for (const r of out) {
+  return [...found.values()].map(pack).sort((a, b) => b.p - a.p);
+}
+function search() {
+  const kept = [];
+  for (const r of searchAll(S.target)) {
     const s = new Set(r.rows.map(x => x.display_name));
     if (kept.some(k => k.rows.filter(x => s.has(x.display_name)).length >= Math.max(s.size - 1, 1))) continue;
     kept.push(r); if (kept.length >= 5) break;
@@ -413,6 +471,174 @@ function megaRows() {
     }
   }
   return out.sort((a, b) => (a.pick.gameday + a.pick.gametime).localeCompare(b.pick.gameday + b.pick.gametime));
+}
+
+/* ---------- tickets: a spread of small slips at similar odds ---------- */
+// Play the weekend out 20,000 times (each player scores with his chance; seeded so the
+// picks don't change on every redraw). Then add tickets one at a time, each time taking
+// the one that wins in the most weekends the tickets so far lose, so they don't all die
+// on the same miss. No player goes in more than the cap's share of tickets.
+const WORLDS = 20000, WORDS = WORLDS / 32, simCache = new Map();
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const hash = s => [...s].reduce((h, c) => Math.imul(h ^ c.charCodeAt(0), 16777619), 2166136261);
+function scored(l) {
+  const k = S.book + "|" + l.display_name;
+  if (!simCache.has(k)) {
+    const r = rng(hash(k)), b = new Uint32Array(WORDS);
+    for (let w = 0; w < WORLDS; w++) if (r() < l.p_bet) b[w >>> 5] |= 1 << (w & 31);
+    simCache.set(k, b);
+  }
+  return simCache.get(k);
+}
+const pop = x => { x -= x >>> 1 & 0x55555555; x = (x & 0x33333333) + (x >>> 2 & 0x33333333); return (x + (x >>> 4) & 0x0F0F0F0F) * 0x01010101 >>> 24; };
+const TICKET_N = [5, 10, 15, 20, 30], STAKES = [1, 2, 5, 10], CAPS = [[.3, "30%"], [.5, "50%"], [.7, "70%"], [1, "No limit"]];
+
+function bitsOf(rows) {
+  const b = new Uint32Array(WORDS).fill(~0);
+  for (const r of rows) { const s = scored(r); for (let i = 0; i < WORDS; i++) b[i] &= s[i]; }
+  return b;
+}
+const sameTicket = (a, b) => a.length === b.length && a.every(n => b.includes(n));
+
+function tickets() {
+  const top = 1 + S.target / 100;
+  const pool = searchAll(S.target, 2 * top, 400).slice(0, 1500);
+  for (const t of pool) t.bits = bitsOf(t.rows);
+  const cap = Math.max(1, Math.floor(S.cap * S.nTix)), uses = new Map(), lost = new Uint32Array(WORDS).fill(~0), picked = [];
+  const full = t => t.rows.some(r => !S.locks.has(r.display_name) && (uses.get(r.display_name) || 0) >= cap);
+  while (picked.length < S.nTix) {
+    let best = null, bestGain = -1;
+    for (const t of pool) {
+      if (t.used || full(t)) continue;
+      let g = 0; for (let i = 0; i < WORDS; i++) g += pop(t.bits[i] & lost[i]);
+      if (g > bestGain || (g === bestGain && t.p > best.p)) { best = t; bestGain = g; }
+    }
+    if (!best) break;
+    best.used = true; picked.push(best);
+    for (let i = 0; i < WORDS; i++) lost[i] &= ~best.bits[i];
+    for (const r of best.rows) uses.set(r.display_name, (uses.get(r.display_name) || 0) + 1);
+  }
+  return { ...analyze(picked), short: picked.length < S.nTix, poolSize: pool.length };
+}
+
+// Your saved tickets for this book, rebuilt from this week's legs (a player whose prop came off the board drops the ticket).
+function mineTickets() {
+  const legs = new Map(bookLegs().map(l => [l.display_name, l]));
+  return S.mine.filter(m => m.book === S.book).map(m => m.names.map(n => legs.get(n))).filter(rows => rows.every(Boolean))
+    .map(rows => { const t = pack(rows); t.bits = bitsOf(rows); return t; });
+}
+
+const kick = l => { const d = new Date(`${l.gameday}T${l.gametime}:00`);
+  return d.toLocaleDateString("en-US", { weekday: "short" }) + " " + d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); };
+
+// Odds, exposure and what kills it, all over the same simulated weekends.
+function analyze(picked) {
+  const n = picked.length, hits = new Uint8Array(WORLDS), ret = new Float64Array(WORLDS);
+  for (const t of picked) for (let w = 0; w < WORLDS; w++) if (t.bits[w >>> 5] >>> (w & 31) & 1) { hits[w]++; ret[w] += S.stake * t.dec; }
+  const cost = S.stake * n;
+  let any = 0, two = 0; const wins = [];
+  for (let w = 0; w < WORLDS; w++) { if (hits[w]) { any++; wins.push(ret[w]); } if (hits[w] > 1) two++; }
+  wins.sort((a, b) => a - b);
+  const legs = new Map();
+  for (const t of picked) for (const r of t.rows) { const e = legs.get(r.display_name) || { l: r, n: 0 }; e.n++; legs.set(r.display_name, e); }
+  // a group (a team or a game) kills every ticket with a leg in it when none of those legs score
+  const groups = (key, label) => {
+    const m = new Map();
+    for (const e of legs.values()) { const k = key(e.l); if (!m.has(k)) m.set(k, { k, label: label(e.l), legs: [] }); m.get(k).legs.push(e.l); }
+    return [...m.values()].map(g => {
+      const names = new Set(g.legs.map(l => l.display_name));
+      const kills = picked.filter(t => t.rows.some(r => names.has(r.display_name))).length;
+      const none = new Uint32Array(WORDS).fill(~0);
+      for (const l of g.legs) { const s = scored(l); for (let i = 0; i < WORDS; i++) none[i] &= ~s[i]; }
+      let c = 0; for (let i = 0; i < WORDS; i++) c += pop(none[i]);
+      return { ...g, kills, pNone: c / WORLDS };
+    }).filter(g => g.legs.length > 1 && (g.kills > 1 || n <= 3)).sort((a, b) => b.kills - a.kills || b.pNone - a.pNone);
+  };
+  const expo = [...legs.values()].sort((a, b) => b.n - a.n || b.l.p_bet - a.l.p_bet);
+  return { picked, cost, pAny: n ? any / WORLDS : 0, pTwo: n ? two / WORLDS : 0, typical: wins.length ? wins[wins.length >> 1] : 0,
+           ev: picked.reduce((a, t) => a + t.p * t.dec, 0) * S.stake - cost, expo,
+           teams: groups(l => l.team, l => `No ${l.team} touchdown from your ${l.team} legs`),
+           games: groups(l => l.game_id, l => `${gameLabel(l.game_id)} · ${kick(l)}`) };
+}
+
+function riskHTML(T) {
+  const n = T.picked.length, rows = [];
+  for (const e of T.expo.filter(e => e.n > 1 || n <= 3).slice(0, 4))
+    rows.push({ what: `${esc(e.l.display_name)} is out or doesn't score`, kills: e.n, p: 1 - e.l.p_bet });
+  for (const g of T.teams.slice(0, 3)) rows.push({ what: esc(g.label), kills: g.kills, p: g.pNone });
+  const seen = new Set(rows.map(r => r.kills + "|" + r.p.toFixed(3)));
+  for (const g of T.games.slice(0, 3)) { const k = g.kills + "|" + g.pNone.toFixed(3);
+    if (!seen.has(k)) rows.push({ what: `Nobody scores from your legs in ${esc(g.label)}`, kills: g.kills, p: g.pNone }); }
+  rows.sort((a, b) => b.kills - a.kills || b.p - a.p);
+  if (!rows.length) return `<p class="note">No single player, team or game is in more than one ticket.</p>`;
+  return `<ul class="risk">${rows.slice(0, 7).map(r => `<li class="${r.kills === n ? "all" : ""}"><span>${r.what}</span>
+    <span class="num"><b>${r.kills === n ? "kills all" : `kills ${r.kills} of ${n}`}</b> · happens ${pct(r.p)}</span></li>`).join("")}</ul>`;
+}
+
+function ticketsHTML(T, mine) {
+  const b = BOOKS[S.book], n = T.picked.length;
+  const switcher = `<div class="chips tixmode" role="group" aria-label="Which tickets">
+    <button aria-pressed="${!mine}" data-tixmode="sug">Suggested</button><button aria-pressed="${mine}" data-tixmode="mine">My tickets${S.mine.filter(m => m.book === S.book).length ? ` (${S.mine.filter(m => m.book === S.book).length})` : ""}</button></div>`;
+  if (!n) return `<div class="tix-view">${switcher}<div class="hand"><div class="empty-state">${mine ?
+    `<b>No tickets saved yet</b>Tap Play on a suggested ticket, or build one in Best hands and tap Save. Then this page tells you what could sink them.` :
+    `<b>No tickets at ${fmt(S.target)}</b>Turn the dial down, allow more legs, or loosen the player limit.`}</div></div></div>`;
+  const shown = S.expoAll ? T.expo : T.expo.slice(0, 8);
+  const meter = shown.map(e => { const nm = e.l.display_name, kept = S.locks.has(nm), share = e.n / n;
+    return `<li style="--team:${TEAM[e.l.team] || "#444"}"><span class="nm">${esc(nm)} <small>${e.l.team}</small></span>
+      <span class="bar" aria-hidden="true"><i style="width:${(share * 100).toFixed(1)}%"></i></span>
+      <span class="ct num">${e.n} of ${n}</span><span class="pc num">${pct(e.l.p_bet)}</span>
+      ${mine ? "" : `<span class="mx"><button aria-pressed="${kept}" data-lock="${esc(nm)}">${kept ? "✓ Kept" : "Keep"}</button><button data-cut="${esc(nm)}">Cut</button></span>`}</li>`; }).join("");
+  const saved = t => S.mine.some(m => m.book === S.book && sameTicket(m.names, t.rows.map(r => r.display_name)));
+  return `<div class="tix-view">${switcher}
+    <div class="mega-head"><h2>${mine ? `Your ${n} ticket${n > 1 ? "s" : ""}` : `${n} tickets · ${fmt(S.target)} to ${fmt(2 * S.target + 100)}`}</h2>
+      <span class="note num">${pct(T.pAny)} that at least one hits${mine ? "" : ` · picked from ${T.poolSize.toLocaleString("en-US")} slips`}</span></div>
+    ${T.short && !mine ? `<p class="note warn-note">Only ${n} tickets fit the ${Math.round(S.cap * 100)}% limit at this price. Loosen the limit or turn the dial.</p>` : ""}
+    <div class="tix-grid">
+      <section class="expo" aria-label="Exposure"><h3>Exposure <span>tickets he's in · his chance</span></h3><ul>${meter}</ul>
+        ${T.expo.length > 8 ? `<button class="link more" data-expoall>${S.expoAll ? "Show fewer" : `Show all ${T.expo.length} players`}</button>` : ""}
+        ${mine ? "" : `<p class="note">Keep puts a player in every ticket; Cut takes him out of all of them.</p>`}</section>
+      <section class="expo" aria-label="What kills it"><h3>What kills it</h3>${riskHTML(T)}</section>
+    </div>
+    <div class="tix">${T.picked.map((t, i) => { const u = slipUrl(t.rows), on = saved(t), names = esc(JSON.stringify(t.rows.map(r => r.display_name)));
+      return `<article class="ticket ${on ? "on" : ""}"><header><span class="i num">#${i + 1}</span><span class="p num">${fmt(t.am)}</span><span class="h num">1 in ${Math.round(1 / t.p)}</span>
+        <button class="play" aria-pressed="${on}" data-play="${names}">${mine ? "Remove" : on ? "✓ Playing" : "Play"}</button></header>
+        <ul>${t.rows.map(r => `<li><span>${esc(r.display_name)} <small>${r.team} · ${r.pos} · ${kick(r)}</small></span><span class="num">${fmt(r.odds)}</span></li>`).join("")}</ul>
+        <a class="tbtn" href="${esc(u || b.url)}" target="_blank" rel="noopener">${u ? "Add to " : "Open "}${b.name} · $${S.stake} pays $${big(S.stake * t.dec)}</a></article>`; }).join("")}</div>
+  </div>`;
+}
+
+function renderTicketsSlip(T, mine) {
+  const el = document.getElementById("slip"), b = BOOKS[S.book], n = T.picked.length;
+  if (!n) { el.innerHTML = `<p class="what">Tickets · ${b.name}</p><p class="price">None</p><p class="pays">${mine ? "Save some tickets first." : "Nothing fits at this payout."}</p>`; return; }
+  el.innerHTML = `
+    <p class="what">${mine ? "Your " : ""}${n} ticket${n > 1 ? "s" : ""} × $${S.stake} · ${b.name}</p>
+    <p class="price num">${pct(T.pAny)}</p>
+    <dl class="stats">
+      <div><dt>Cost</dt><dd class="num">$${T.cost}</dd></div>
+      <div><dt>A hit pays</dt><dd class="num">$${big(T.typical)}</dd></div>
+      <div><dt>2+ hits</dt><dd class="num">${pct(T.pTwo)}</dd></div>
+    </dl>
+    <p class="pays num">at least one hits · $${T.cost} returns about <b>$${big(T.typical)}</b> when it does</p>
+    <button class="btn out" id="copy">Share all</button>
+    <p class="fine">Each ticket has its own Add button. On average our numbers have this returning ${T.ev >= 0 ? "+" : "−"}$${Math.abs(T.ev).toFixed(2)} on $${T.cost}. Treat it as a lottery ticket, not an edge.</p>`;
+  document.getElementById("copy").onclick = () => {
+    const txt = `${n} Anytime TD tickets · $${S.stake} each on ${b.name}\n` +
+      T.picked.map((t, i) => { const u = slipUrl(t.rows);
+        return `\n#${i + 1} ${fmt(t.am)} · ${t.rows.map(r => `${r.display_name} ${fmt(r.odds)}`).join(", ")}` + (u ? `\n🔗 ${u}` : ""); }).join("\n") +
+      `\n\n${pct(T.pAny)} that at least one hits`;
+    copyText(txt).then(ok => toast(ok ? `Copied all ${n} tickets with their links.` : "Copy is blocked in this browser."));
+  };
+}
+
+// saved tickets live in this browser only, per week
+const MINE_KEY = "attd-mine:" + C.label.split(" · ")[0];
+function loadMine() { try { return JSON.parse(localStorage.getItem(MINE_KEY) || "[]"); } catch (e) { return []; } }
+function saveMine() { try { localStorage.setItem(MINE_KEY, JSON.stringify(S.mine)); } catch (e) { /* private mode: keeps for this visit */ } }
+function toggleMine(names) {
+  const i = S.mine.findIndex(m => m.book === S.book && sameTicket(m.names, names));
+  if (i >= 0) S.mine.splice(i, 1); else S.mine.push({ book: S.book, names });
+  saveMine(); return i < 0;
 }
 
 /* ---------- card ---------- */
@@ -489,7 +715,11 @@ function renderSlip(r, label) {
     <ol>${r.rows.map(x => `<li><span>${esc(x.display_name)}</span><span class="num">${fmt(x.odds)}</span></li>`).join("")}</ol>
     <a class="btn go" href="${esc(slipUrl(r.rows) || b.url)}" target="_blank" rel="noopener">${slipUrl(r.rows) ? "Add to " : "Open "}${b.name}</a>
     <button class="btn out" id="copy">Share</button>
+    ${S.tab === "best" ? `<button class="btn out save" id="save">${S.mine.some(m => m.book === S.book && sameTicket(m.names, r.rows.map(x => x.display_name))) ? "✓ Saved" : `Save<span class="lg"> to my tickets</span>`}</button>` : ""}
     <p class="fine">${slipUrl(r.rows) ? `Opens ${b.name} with all ${r.rows.length} legs in the betslip. Check the price there before you bet.` : `These odds have no betslip links, so this opens ${b.name}. Copy the legs and add them there.`}</p>`;
+  const sv = document.getElementById("save");
+  if (sv) sv.onclick = () => { const on = toggleMine(r.rows.map(x => x.display_name));
+    sv.innerHTML = on ? "✓ Saved" : `Save<span class="lg"> to my tickets</span>`; toast(on ? "Saved. See it under Tickets → My tickets." : "Removed from My tickets."); };
   document.getElementById("copy").onclick = () => {
     const link = slipUrl(r.rows);
     const txt = `${fmt(r.am)} ${r.rows.length}-leg Anytime TD Parlay\n` +
@@ -545,6 +775,12 @@ function renderRules() {
   if (S.tab === "mega") r.innerHTML = `
     <span class="chips" role="group" aria-label="Mega mode">${MEGA_MODES.map(([k, v]) => `<button aria-pressed="${S.megaMode === k}" data-mm="${k}">${v}</button>`).join("")}</span>
     <span class="note">One leg from every game. Change any pick with its menu.${edits() ? " " + edits() : ""}</span>`;
+  if (S.tab === "tix") r.innerHTML = `
+    <label class="check"><select id="nTix">${TICKET_N.map(n => `<option ${n === S.nTix ? "selected" : ""}>${n}</option>`).join("")}</select> tickets</label>
+    <label class="check">$<select id="stake">${STAKES.map(n => `<option ${n === S.stake ? "selected" : ""}>${n}</option>`).join("")}</select> each</label>
+    <label class="check">One player in at most <select id="cap">${CAPS.map(([v, t]) => `<option value="${v}" ${v === S.cap ? "selected" : ""}>${t}</option>`).join("")}</select></label>
+    <label class="check">Up to <select id="maxLegs">${[2, 3, 4, 5, 6, 7, 8].map(n => `<option ${n === S.maxLegs ? "selected" : ""}>${n}</option>`).join("")}</select> legs</label>
+    <span class="note">${edits() || "Tickets pay between the dial and about double it."}</span>`;
   if (S.tab === "recap") r.innerHTML = `<span class="note">How last week's slips did, what the perfect mega was, and why each player scored or didn't.</span>`;
   if (S.tab === "scout") r.innerHTML = `
     <input type="search" id="q" placeholder="Player or team" value="${esc(S.q)}" aria-label="Find a player or team">
@@ -553,6 +789,9 @@ function renderRules() {
   const on = (id, ev, f) => { const e = document.getElementById(id); if (e) e[ev] = f; };
   on("maxLegs", "onchange", e => { S.maxLegs = +e.target.value; S.pick = 0; renderView(); });
   on("sameGame", "onchange", e => { S.sameGame = e.target.checked; S.pick = 0; renderView(); });
+  on("nTix", "onchange", e => { S.nTix = +e.target.value; renderView(); });
+  on("stake", "onchange", e => { S.stake = +e.target.value; renderView(); });
+  on("cap", "onchange", e => { S.cap = +e.target.value; renderView(); });
   on("sort", "onchange", e => { S.sort = e.target.value; renderView(); });
   on("q", "oninput", e => { S.q = e.target.value.trim(); renderView(); });
   r.querySelectorAll("[data-undo]").forEach(b => b.onclick = () => { S[b.dataset.undo].clear(); S.pick = 0; renderRules(); renderView(); });
@@ -583,6 +822,10 @@ function renderView() {
       <div class="hand">${g.map(x => cardHTML(x.pick, `<select data-game="${x.gid}" aria-label="Pick for ${x.gid.slice(8).replace("_", " at ")}">${x.opts.map(o =>
         `<option value="${esc(o.display_name)}" ${o === x.pick ? "selected" : ""}>${esc(surname(o.display_name))} ${fmt(o.odds)}</option>`).join("")}</select>`)).join("")}</div>`;
     renderSlip(r, `Mega · ${g.length}-leg`);
+  } else if (S.tab === "tix") {
+    const T = S.tixMine ? analyze(mineTickets()) : tickets();
+    v.innerHTML = ticketsHTML(T, S.tixMine);
+    renderTicketsSlip(T, S.tixMine);
   } else if (S.tab === "recap") {
     v.innerHTML = recapHTML(DATA.recap);
     const hands = search();
@@ -614,6 +857,10 @@ function wireView() {
     S.locks.has(n) ? S.locks.delete(n) : (S.locks.add(n), S.cuts.delete(n)); S.pick = 0; renderRules(); renderView(); });
   v.querySelectorAll("[data-cut]").forEach(b => b.onclick = () => { const n = b.dataset.cut;
     S.cuts.has(n) ? S.cuts.delete(n) : (S.cuts.add(n), S.locks.delete(n)); S.pick = 0; renderRules(); renderView(); });
+  v.querySelectorAll("[data-expoall]").forEach(b => b.onclick = () => { S.expoAll = !S.expoAll; renderView(); });
+  v.querySelectorAll("[data-tixmode]").forEach(b => b.onclick = () => { S.tixMine = b.dataset.tixmode === "mine"; renderView(); });
+  v.querySelectorAll("[data-play]").forEach(b => b.onclick = () => { const on = toggleMine(JSON.parse(b.dataset.play));
+    toast(on ? "Added to My tickets." : "Removed from My tickets."); renderView(); });
   v.querySelectorAll("[data-hand]").forEach(b => b.onclick = () => { S.pick = +b.dataset.hand; renderView(); });
   v.querySelectorAll("[data-game]").forEach(s => s.onchange = () => { S.megaPick[s.dataset.game] = s.value; renderView(); });
 }
@@ -622,7 +869,7 @@ function renderChrome() {
   document.getElementById("books").innerHTML = Object.entries(BOOKS).map(([k, b]) =>
     `<button aria-pressed="${S.book === k}" data-book="${k}">${b.name}</button>`).join("");
   document.querySelectorAll("[data-book]").forEach(b => b.onclick = () => { S.book = b.dataset.book; S.pick = 0; S.megaPick = {}; renderChrome(); renderView(); });
-  const tabs = [["best", "Best hands", "Best"], ["mega", "Mega · every game", "Mega"], ["scout", "Scout players", "Scout"]]
+  const tabs = [["best", "Best hands", "Best"], ["tix", "Tickets", "Tickets"], ["mega", "Mega · every game", "Mega"], ["scout", "Scout players", "Scout"]]
     .concat(DATA.recap ? [["recap", `Week ${DATA.recap.week} recap`, "Recap"]] : []);
   document.getElementById("tabs").innerHTML = tabs.map(([k, v, sh]) =>
     `<button role="tab" aria-selected="${S.tab === k}" data-tab="${k}"><span class="full">${v}</span><span class="short">${sh}</span></button>`).join("");
@@ -638,6 +885,7 @@ function toast(msg) {
   clearTimeout(toast.h); toast.h = setTimeout(() => t.hidden = true, 1800);
 }
 
+S.mine = loadMine();
 const dial = document.getElementById("payout");
 dial.value = targetToDial(S.target);
 let raf = 0;
